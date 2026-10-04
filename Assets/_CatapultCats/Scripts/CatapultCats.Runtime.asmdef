@@ -1,7 +1,9 @@
 {
   "name": "CatapultCats.Runtime",
   "rootNamespace": "CatapultCats",
-  "references": [],
+  "references": [
+    "Unity.InputSystem"
+  ],
   "includePlatforms": [],
   "excludePlatforms": [],
   "allowUnsafeCode": false,

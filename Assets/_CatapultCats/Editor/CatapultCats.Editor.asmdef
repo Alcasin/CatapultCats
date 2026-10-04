@@ -1,7 +1,9 @@
 {
   "name": "CatapultCats.Editor",
   "rootNamespace": "CatapultCats.Editor",
-  "references": [],
+  "references": [
+    "CatapultCats.Runtime"
+  ],
   "includePlatforms": [
     "Editor"
   ],
