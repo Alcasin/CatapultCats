@@ -50,6 +50,34 @@ namespace CatapultCats.Launch
             ResetToReady();
         }
 
+        public void SetAnchorPosition(Vector2 worldPosition)
+        {
+            if (launchAnchor == null)
+            {
+                return;
+            }
+
+            Vector2 delta = worldPosition - AnchorPosition;
+            if (delta.sqrMagnitude > 0f)
+            {
+                transform.position += (Vector3)delta;
+                foreach (LineRenderer line in GetComponentsInChildren<LineRenderer>(true))
+                {
+                    if (!line.useWorldSpace)
+                    {
+                        continue;
+                    }
+
+                    for (int index = 0; index < line.positionCount; index++)
+                    {
+                        line.SetPosition(index, line.GetPosition(index) + (Vector3)delta);
+                    }
+                }
+            }
+
+            ResetToReady();
+        }
+
         private void OnEnable()
         {
             CreateInputActionsIfNeeded();

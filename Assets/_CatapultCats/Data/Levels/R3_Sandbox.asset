@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3d1b80f4e924d07a9c8b1e2f3a4c503, type: 3}
+  m_Name: R3_Sandbox
+  m_EditorClassIdentifier: CatapultCats.Runtime::CatapultCats.Levels.LevelDefinition
+  levelId: R3_Sandbox
+  catCount: 4
+  slingshotPosition: {x: -6, y: -2.4}
+  pieces:
+  - pieceType: 1
+    position: {x: 3.4, y: -4.1}
+    rotationDegrees: 0
+  - pieceType: 1
+    position: {x: 5.6, y: -4.1}
+    rotationDegrees: 0
+  - pieceType: 3
+    position: {x: 4.5, y: -4.15}
+    rotationDegrees: 0
+  - pieceType: 0
+    position: {x: 4.5, y: -3.16}
+    rotationDegrees: 0
+  - pieceType: 4
+    position: {x: 4.5, y: -2.62}
+    rotationDegrees: 0
+  - pieceType: 6
+    position: {x: 3.95, y: -4.58}
+    rotationDegrees: 0
+  - pieceType: 6
+    position: {x: 5.05, y: -4.58}
+    rotationDegrees: 0
+  - pieceType: 0
+    position: {x: 0.25, y: -0.5}
+    rotationDegrees: 60.000004
+  - pieceType: 6
+    position: {x: 2.5, y: -4.25}
+    rotationDegrees: 0

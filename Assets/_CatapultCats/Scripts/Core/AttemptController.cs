@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using CatapultCats.Launch;
 using CatapultCats.Physics;
@@ -11,10 +12,10 @@ namespace CatapultCats.Core
     {
         [SerializeField] private SlingshotController2D slingshot;
         [SerializeField] private PhysicsResolver2D resolver;
-        [SerializeField] private MouseTarget2D[] targets;
         [SerializeField, Min(0)] private int maximumShots = 3;
 
         private float timeSinceLaunch;
+        private MouseTarget2D[] targets = Array.Empty<MouseTarget2D>();
 
         public AttemptState State { get; private set; } = AttemptState.Aiming;
         public ShotCounter Shots { get; private set; }
@@ -23,6 +24,18 @@ namespace CatapultCats.Core
         public MouseTarget2D[] Targets => targets;
         public int MaximumShots => maximumShots;
         public event Action<AttemptState> StateChanged;
+
+        public void ConfigureLevel(IEnumerable<MouseTarget2D> levelTargets, int catCount)
+        {
+            targets = levelTargets != null
+                ? levelTargets.Where(target => target != null).Distinct().ToArray()
+                : Array.Empty<MouseTarget2D>();
+            maximumShots = catCount;
+            Shots = new ShotCounter(maximumShots);
+            timeSinceLaunch = 0f;
+            State = AttemptState.Aiming;
+            slingshot?.ResetForAiming();
+        }
 
         private void Awake()
         {

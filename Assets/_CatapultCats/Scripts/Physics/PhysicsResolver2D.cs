@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace CatapultCats.Physics
@@ -6,7 +8,6 @@ namespace CatapultCats.Physics
     public sealed class PhysicsResolver2D : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D projectileBody;
-        [SerializeField] private Rigidbody2D[] criticalBodies;
         [SerializeField, Min(0f)] private float minimumObservationTime = 0.3f;
         [SerializeField, Min(0f)] private float linearSettleSpeed = 0.15f;
         [SerializeField, Min(0f)] private float angularSettleSpeed = 10f;
@@ -17,12 +18,24 @@ namespace CatapultCats.Physics
 
         private float elapsed;
         private float settledTime;
+        private Rigidbody2D[] criticalBodies = Array.Empty<Rigidbody2D>();
 
         public bool IsResolving { get; private set; }
         public float MinimumObservationTime => minimumObservationTime;
         public Rigidbody2D ProjectileBody => projectileBody;
         public Rigidbody2D[] CriticalBodies => criticalBodies;
         public event Action Resolved;
+
+        public void ConfigureBodies(Rigidbody2D currentProjectileBody, IEnumerable<Rigidbody2D> monitoredBodies)
+        {
+            projectileBody = currentProjectileBody;
+            criticalBodies = monitoredBodies != null
+                ? monitoredBodies.Where(body => body != null).Distinct().ToArray()
+                : Array.Empty<Rigidbody2D>();
+            IsResolving = false;
+            elapsed = 0f;
+            settledTime = 0f;
+        }
 
         public void BeginResolution()
         {
