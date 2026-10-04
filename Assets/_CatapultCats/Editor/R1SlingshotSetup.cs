@@ -172,17 +172,8 @@ namespace CatapultCats.Editor
                 rightBand);
 
             GameObject trajectory = CreateChild(prototypeRoot.transform, "TrajectoryPreview");
-            LineRenderer solidSegment = CreateLine(
-                trajectory.transform,
-                "SolidSegment",
-                lineMaterial,
-                new Color32(255, 241, 166, 255),
-                0.055f,
-                3);
-            solidSegment.enabled = false;
-
             Transform dotsRoot = CreateChild(trajectory.transform, "Dots").transform;
-            var dots = new SpriteRenderer[5];
+            var dots = new SpriteRenderer[4];
             for (int index = 0; index < dots.Length; index++)
             {
                 GameObject dotObject = CreateChild(dotsRoot, $"Dot_{index + 1}");
@@ -194,7 +185,7 @@ namespace CatapultCats.Editor
             }
 
             var trajectoryPreview = trajectory.AddComponent<TrajectoryPreview2D>();
-            ConfigureTrajectoryPreview(trajectoryPreview, controller, projectileBody, solidSegment, dots);
+            ConfigureTrajectoryPreview(trajectoryPreview, controller, projectileBody, dots);
 
             GameObject ground = CreateChild(prototypeRoot.transform, "PrototypeGround");
             ground.transform.position = GroundPosition;
@@ -306,13 +297,11 @@ namespace CatapultCats.Editor
             TrajectoryPreview2D preview,
             SlingshotController2D controller,
             Rigidbody2D projectileBody,
-            LineRenderer solidSegment,
             IReadOnlyList<SpriteRenderer> dots)
         {
             var serialized = new SerializedObject(preview);
             serialized.FindProperty("controller").objectReferenceValue = controller;
             serialized.FindProperty("projectileBody").objectReferenceValue = projectileBody;
-            serialized.FindProperty("solidSegment").objectReferenceValue = solidSegment;
 
             SerializedProperty dotsProperty = serialized.FindProperty("dots");
             dotsProperty.arraySize = dots.Count;
@@ -465,9 +454,9 @@ namespace CatapultCats.Editor
             {
                 Require(previews[0].Controller == controller, "TRAJECTORY: Controller reference is invalid.", failures);
                 Require(previews[0].ProjectileBody == projectileBody, "TRAJECTORY: Rigidbody2D reference is invalid.", failures);
-                Require(previews[0].SolidSegment != null, "TRAJECTORY: Solid segment is missing.", failures);
-                Require(previews[0].DotCount == 5, "TRAJECTORY: Exactly five dots are required.", failures);
+                Require(previews[0].DotCount == 4, "TRAJECTORY: Exactly four dots are required.", failures);
                 Require(previews[0].HasCompleteDotReferences, "TRAJECTORY: One or more dot references are missing.", failures);
+                Require(previews[0].transform.Find("SolidSegment") == null, "TRAJECTORY: Solid segment must not exist.", failures);
             }
 
             Transform[] groundTransforms = transforms.Where(item => item.name == "PrototypeGround").ToArray();

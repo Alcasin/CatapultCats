@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -34,6 +35,7 @@ namespace CatapultCats.Launch
         public Vector2 AnchorPosition => launchAnchor != null ? (Vector2)launchAnchor.position : Vector2.zero;
         public float MaximumDragDistance => maxDragDistance;
         public float MinimumLaunchDistance => minimumLaunchDistance;
+        public float LaunchSpeedPerUnit => launchSpeedPerUnit;
         public Vector2 PredictedLaunchVelocity =>
             LaunchMath2D.CalculateLaunchVelocity(currentDragOffset, launchSpeedPerUnit);
 
@@ -41,6 +43,12 @@ namespace CatapultCats.Launch
         public Rigidbody2D ProjectileBody => projectileBody;
         public Collider2D ProjectileCollider => projectileCollider;
         public Camera InputCamera => inputCamera;
+        public event Action<Vector2> Launched;
+
+        public void ResetForAiming()
+        {
+            ResetToReady();
+        }
 
         private void OnEnable()
         {
@@ -156,6 +164,7 @@ namespace CatapultCats.Launch
             projectileBody.bodyType = RigidbodyType2D.Dynamic;
             projectileBody.linearVelocity = launchVelocity;
             state = LaunchState.Launched;
+            Launched?.Invoke(launchVelocity);
         }
 
         private void ResetToReady()
