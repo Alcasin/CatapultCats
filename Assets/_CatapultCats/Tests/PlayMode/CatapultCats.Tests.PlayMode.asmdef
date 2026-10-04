@@ -1,0 +1,19 @@
+{
+  "name": "CatapultCats.Tests.PlayMode",
+  "rootNamespace": "CatapultCats.Tests.PlayMode",
+  "references": [
+    "CatapultCats.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

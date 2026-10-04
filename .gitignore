@@ -1,0 +1,37 @@
+# Unity-generated content
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+
+# IDE and editor state
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.sln
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# OS-generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Unity crash reports and temporary exports
+sysinfo.txt
+*.tmp
+*.unitypackage

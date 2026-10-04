@@ -1,0 +1,35 @@
+* text=auto
+
+*.cs text eol=lf
+*.asmdef text eol=lf
+*.asmref text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.shader text eol=lf
+*.cginc text eol=lf
+
+# Unity YAML is text, but its formatting can produce unhelpful whitespace warnings.
+*.meta text eol=lf whitespace=-trailing-space
+*.unity text eol=lf whitespace=-trailing-space
+*.prefab text eol=lf whitespace=-trailing-space
+*.asset text eol=lf whitespace=-trailing-space
+*.mat text eol=lf whitespace=-trailing-space
+*.anim text eol=lf whitespace=-trailing-space
+*.controller text eol=lf whitespace=-trailing-space
+*.overrideController text eol=lf whitespace=-trailing-space
+*.inputactions text eol=lf whitespace=-trailing-space
+
+# Common binary assets.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.psd binary
+*.tga binary
+*.wav binary
+*.mp3 binary
+*.ogg binary
+*.fbx binary
+*.ttf binary
+*.otf binary
