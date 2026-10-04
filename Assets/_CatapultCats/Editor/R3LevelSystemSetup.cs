@@ -101,16 +101,16 @@ namespace CatapultCats.Editor
             return new Dictionary<LevelPieceType, GameObject>
             {
                 [LevelPieceType.WoodBeam] = CreateBreakablePrefab(
-                    LevelPieceType.WoodBeam, new Vector2(2.6f, 0.28f), 1.4f, 5f, 3,
+                    LevelPieceType.WoodBeam, LevelValidation.GetPieceSize(LevelPieceType.WoodBeam), 1.4f, 5f, 3,
                     square, new Color32(176, 108, 56, 255), wood),
                 [LevelPieceType.WoodBlock] = CreateBreakablePrefab(
-                    LevelPieceType.WoodBlock, new Vector2(0.32f, 1.6f), 1.2f, 5f, 3,
+                    LevelPieceType.WoodBlock, LevelValidation.GetPieceSize(LevelPieceType.WoodBlock), 1.2f, 5f, 3,
                     square, new Color32(176, 108, 56, 255), wood),
                 [LevelPieceType.GlassBeam] = CreateBreakablePrefab(
-                    LevelPieceType.GlassBeam, new Vector2(2.2f, 0.24f), 0.7f, 1.5f, 4,
+                    LevelPieceType.GlassBeam, LevelValidation.GetPieceSize(LevelPieceType.GlassBeam), 0.7f, 1.5f, 4,
                     square, new Color32(24, 184, 177, 255), glass),
                 [LevelPieceType.GlassBlock] = CreateBreakablePrefab(
-                    LevelPieceType.GlassBlock, new Vector2(0.24f, 1.5f), 0.55f, 1.5f, 4,
+                    LevelPieceType.GlassBlock, LevelValidation.GetPieceSize(LevelPieceType.GlassBlock), 0.55f, 1.5f, 4,
                     square, new Color32(24, 184, 177, 255), glass),
                 [LevelPieceType.HeavyBlock] = CreateHeavyPrefab(square, heavy),
                 [LevelPieceType.Ramp] = CreateRampPrefab(square, ramp),
@@ -180,12 +180,14 @@ namespace CatapultCats.Editor
         private static GameObject CreateRampPrefab(Sprite sprite, PhysicsMaterial2D material)
         {
             var root = new GameObject("Ramp");
-            root.transform.localScale = LevelValidation.GetPieceSize(LevelPieceType.Ramp);
+            Vector2 size = LevelValidation.GetPieceSize(LevelPieceType.Ramp);
+            root.transform.localScale = new Vector3(size.x, size.y, 1f);
             var visual = root.AddComponent<SpriteRenderer>();
             visual.sprite = sprite;
             visual.color = new Color32(91, 123, 82, 255);
             visual.sortingOrder = 4;
             var collider = root.AddComponent<BoxCollider2D>();
+            collider.edgeRadius = 0f;
             collider.sharedMaterial = material;
             return SavePrefab(root, $"{StructurePrefabFolder}/Ramp.prefab");
         }
@@ -230,6 +232,7 @@ namespace CatapultCats.Editor
             visual.color = color;
             visual.sortingOrder = 4;
             var collider = root.AddComponent<BoxCollider2D>();
+            collider.edgeRadius = 0f;
             collider.sharedMaterial = material;
             var body = root.AddComponent<Rigidbody2D>();
             body.bodyType = RigidbodyType2D.Dynamic;
@@ -283,13 +286,13 @@ namespace CatapultCats.Editor
                 LevelDefinition.DefaultSlingshotPosition,
                 new[]
                 {
-                    new LevelPiecePlacement(LevelPieceType.WoodBlock, new Vector2(3.4f, -4.1f), 0f),
-                    new LevelPiecePlacement(LevelPieceType.WoodBlock, new Vector2(5.6f, -4.1f), 0f),
-                    new LevelPiecePlacement(LevelPieceType.GlassBlock, new Vector2(4.5f, -4.15f), 0f),
-                    new LevelPiecePlacement(LevelPieceType.WoodBeam, new Vector2(4.5f, -3.16f), 0f),
-                    new LevelPiecePlacement(LevelPieceType.HeavyBlock, new Vector2(4.5f, -2.62f), 0f),
-                    new LevelPiecePlacement(LevelPieceType.Mouse, new Vector2(3.95f, -4.58f), 0f),
-                    new LevelPiecePlacement(LevelPieceType.Mouse, new Vector2(5.05f, -4.58f), 0f)
+                    new LevelPiecePlacement(LevelPieceType.WoodBlock, new Vector2(3.5f, -4.625f), 0f),
+                    new LevelPiecePlacement(LevelPieceType.WoodBlock, new Vector2(5.5f, -4.625f), 0f),
+                    new LevelPiecePlacement(LevelPieceType.GlassBlock, new Vector2(4.5f, -4.625f), 0f),
+                    new LevelPiecePlacement(LevelPieceType.WoodBeam, new Vector2(4.5f, -4.25f), 0f),
+                    new LevelPiecePlacement(LevelPieceType.HeavyBlock, new Vector2(4.5f, -3.75f), 0f),
+                    new LevelPiecePlacement(LevelPieceType.Mouse, new Vector2(2.75f, -4.575f), 0f),
+                    new LevelPiecePlacement(LevelPieceType.Mouse, new Vector2(6.25f, -4.575f), 0f)
                 });
             EditorUtility.SetDirty(sandbox);
             return sandbox;
@@ -311,7 +314,7 @@ namespace CatapultCats.Editor
 
             GameObject runtime = slingshot.transform.root.gameObject;
             runtime.name = "GameplayRuntime";
-            RenameDirectChild(runtime.transform, "PrototypeGround", "Ground");
+            ConfigureGround(runtime.transform);
             RemoveDirectChild(runtime.transform, "LevelRuntimeRoot");
             RemoveDirectChild(runtime.transform, "Systems");
 
@@ -399,9 +402,18 @@ namespace CatapultCats.Editor
 
             if (slingshot == null || Mathf.Abs(slingshot.MaximumDragDistance - 1.8f) > 0.001f ||
                 Mathf.Abs(slingshot.MinimumLaunchDistance - 0.2f) > 0.001f ||
-                Mathf.Abs(slingshot.LaunchSpeedPerUnit - 7f) > 0.001f)
+                Mathf.Abs(slingshot.LaunchSpeedPerUnit - 10.5f) > 0.001f)
             {
                 failures.Add("Accepted slingshot tuning changed.");
+            }
+
+            Transform ground = slingshot == null
+                ? null
+                : slingshot.transform.root.Cast<Transform>().FirstOrDefault(child => child.name == "Ground");
+            BoxCollider2D groundCollider = ground == null ? null : ground.GetComponent<BoxCollider2D>();
+            if (groundCollider == null || Mathf.Abs(groundCollider.bounds.max.y - LevelValidation.GroundTopY) > 0.001f)
+            {
+                failures.Add($"Gameplay ground top must be {LevelValidation.GroundTopY:0.###}.");
             }
 
             if (AssetDatabase.LoadAssetAtPath<SceneAsset>(AuthoringScenePath) == null)
@@ -525,13 +537,27 @@ namespace CatapultCats.Editor
             }
         }
 
-        private static void RenameDirectChild(Transform parent, string oldName, string newName)
+        private static void ConfigureGround(Transform parent)
         {
-            Transform child = parent.Cast<Transform>().FirstOrDefault(item => item.name == oldName);
-            if (child != null)
+            Transform ground = parent.Cast<Transform>()
+                .FirstOrDefault(item => item.name == "Ground" || item.name == "PrototypeGround");
+            if (ground == null)
             {
-                child.name = newName;
+                throw new InvalidOperationException("Gameplay ground is missing.");
             }
+
+            BoxCollider2D collider = ground.GetComponent<BoxCollider2D>();
+            if (collider == null)
+            {
+                throw new InvalidOperationException("Gameplay ground has no BoxCollider2D.");
+            }
+
+            ground.name = "Ground";
+            float halfHeight = collider.size.y * Mathf.Abs(ground.localScale.y) * 0.5f;
+            float scaledOffset = collider.offset.y * ground.localScale.y;
+            Vector3 position = ground.localPosition;
+            position.y = LevelValidation.GroundTopY - scaledOffset - halfHeight;
+            ground.localPosition = position;
         }
 
         private static void SetArray<T>(SerializedProperty property, IReadOnlyList<T> values) where T : Object

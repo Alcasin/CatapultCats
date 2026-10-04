@@ -7,10 +7,10 @@ namespace CatapultCats.Presentation
     {
         private static readonly float[] DotTimes =
         {
-            0.20f,
-            0.32f,
-            0.44f,
-            0.56f
+            0.13f,
+            0.21f,
+            0.29f,
+            0.37f
         };
 
         [SerializeField] private SlingshotController2D controller;

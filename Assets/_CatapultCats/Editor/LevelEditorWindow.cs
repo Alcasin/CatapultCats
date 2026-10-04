@@ -27,7 +27,8 @@ namespace CatapultCats.Editor
         [SerializeField] private int catCount = LevelDefinition.DefaultCatCount;
         [SerializeField] private Vector2 slingshotPosition = new Vector2(-6f, -2.4f);
         [SerializeField] private bool gridSnap = true;
-        [SerializeField] private float gridSize = 0.25f;
+        [SerializeField] private float gridSize = LevelValidation.ConstructionGridUnit;
+        [SerializeField] private bool usesModularGridDefault;
         [SerializeField] private float rotationStep = 15f;
         private LevelPieceType? placementType;
         private Vector2 scroll;
@@ -42,6 +43,16 @@ namespace CatapultCats.Editor
 
         private void OnEnable()
         {
+            if (!usesModularGridDefault)
+            {
+                if (Mathf.Approximately(gridSize, 0.25f))
+                {
+                    gridSize = LevelValidation.ConstructionGridUnit;
+                }
+
+                usesModularGridDefault = true;
+            }
+
             catalog = AssetDatabase.LoadAssetAtPath<PieceCatalog>(CatalogPath);
             RehydrateLevelReferences();
 
@@ -588,7 +599,8 @@ namespace CatapultCats.Editor
                 var copy = PrefabUtility.InstantiatePrefab(source, root.gameObject.scene) as GameObject;
                 Undo.RegisterCreatedObjectUndo(copy, "Duplicate Level Piece");
                 copy.transform.SetParent(root, true);
-                Vector2 position = (Vector2)piece.transform.position + Vector2.right * (gridSnap ? gridSize : 0.25f);
+                Vector2 position = (Vector2)piece.transform.position +
+                    Vector2.right * (gridSnap ? gridSize : LevelValidation.ConstructionGridUnit);
                 position = Snap(position);
                 copy.transform.SetPositionAndRotation(new Vector3(position.x, position.y, 0f), piece.transform.rotation);
                 copies.Add(copy);

@@ -24,7 +24,9 @@ namespace CatapultCats.Levels
         public const float PlayableMaxX = 9.6f;
         public const float PlayableMinY = -5.4f;
         public const float PlayableMaxY = 5.4f;
-        public const float GroundTopY = -4.9f;
+        public const float ConstructionGridUnit = 0.125f;
+        public const float InitialOverlapTolerance = 0.001f;
+        public const float GroundTopY = -4.875f;
         public const float MaximumDragDistance = 1.8f;
         public const float CatColliderRadius = 0.38f;
         public const float SlingshotSafetyMargin = 0.15f;
@@ -122,7 +124,7 @@ namespace CatapultCats.Levels
                     result.AddError($"{label} extends outside playable bounds.");
                 }
 
-                if (bounds.MinY < GroundTopY - 0.01f)
+                if (bounds.MinY < GroundTopY - InitialOverlapTolerance)
                 {
                     result.AddError($"{label} extends below ground.");
                 }
@@ -146,22 +148,37 @@ namespace CatapultCats.Levels
             switch (pieceType)
             {
                 case LevelPieceType.WoodBeam:
-                    return new Vector2(2.6f, 0.28f);
+                    return new Vector2(2f, 0.25f);
                 case LevelPieceType.WoodBlock:
-                    return new Vector2(0.32f, 1.6f);
+                    return new Vector2(0.5f, 0.5f);
                 case LevelPieceType.GlassBeam:
-                    return new Vector2(2.2f, 0.24f);
+                    return new Vector2(1.5f, 0.25f);
                 case LevelPieceType.GlassBlock:
-                    return new Vector2(0.24f, 1.5f);
+                    return new Vector2(0.5f, 0.5f);
                 case LevelPieceType.HeavyBlock:
-                    return new Vector2(1.1f, 0.8f);
+                    return new Vector2(1f, 0.75f);
                 case LevelPieceType.Ramp:
-                    return new Vector2(2.2f, 0.25f);
+                    return new Vector2(2f, 0.25f);
                 case LevelPieceType.Mouse:
                     return new Vector2(0.6f, 0.6f);
                 default:
                     return Vector2.one;
             }
+        }
+
+        public static bool IsSignificantInitialPenetration(float signedDistance)
+        {
+            return IsFinite(signedDistance) && signedDistance < -InitialOverlapTolerance;
+        }
+
+        public static float CalculateGeometricPenetration(float signedDistance, float contactOffset)
+        {
+            if (!IsFinite(signedDistance) || !IsFinite(contactOffset) || contactOffset < 0f)
+            {
+                return 0f;
+            }
+
+            return Mathf.Max(0f, -signedDistance - contactOffset * 2f);
         }
 
         private static void ValidateSlingshotEnvelope(Vector2 position, LevelValidationResult result)

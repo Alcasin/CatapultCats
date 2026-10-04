@@ -22,7 +22,7 @@ namespace CatapultCats.Launch
         [Header("Launch Tuning")]
         [SerializeField, Min(0.01f)] private float maxDragDistance = 1.8f;
         [SerializeField, Min(0f)] private float minimumLaunchDistance = 0.2f;
-        [SerializeField, Min(0f)] private float launchSpeedPerUnit = 7f;
+        [SerializeField, Min(0f)] private float launchSpeedPerUnit = 10.5f;
 
         private InputAction pointerPositionAction;
         private InputAction pointerPressAction;

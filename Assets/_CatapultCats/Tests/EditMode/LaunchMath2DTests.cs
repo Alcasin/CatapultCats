@@ -53,8 +53,8 @@ namespace CatapultCats.Tests.EditMode
         [Test]
         public void CalculateLaunchVelocity_MaximumDragProducesExpectedSpeed()
         {
-            Vector2 velocity = LaunchMath2D.CalculateLaunchVelocity(Vector2.left * 1.8f, 7f);
-            Assert.That(velocity.magnitude, Is.EqualTo(12.6f).Within(Tolerance));
+            Vector2 velocity = LaunchMath2D.CalculateLaunchVelocity(Vector2.left * 1.8f, 10.5f);
+            Assert.That(velocity.magnitude, Is.EqualTo(18.9f).Within(Tolerance));
         }
 
         [Test]

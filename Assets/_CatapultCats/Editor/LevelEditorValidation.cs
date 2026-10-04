@@ -74,6 +74,11 @@ namespace CatapultCats.Editor
 
                         break;
                 }
+
+                if (entry.PieceType != LevelPieceType.Mouse)
+                {
+                    ValidateStructureDimensions(prefab, entry.PieceType, errors);
+                }
             }
 
             return errors;
@@ -103,14 +108,49 @@ namespace CatapultCats.Editor
                 for (int second = first + 1; second < colliders.Count; second++)
                 {
                     ColliderDistance2D distance = Physics2D.Distance(colliders[first], colliders[second]);
-                    if (distance.isOverlapped && distance.distance < -0.02f)
+                    float penetrationDepth = LevelValidation.CalculateGeometricPenetration(
+                        distance.distance,
+                        Physics2D.defaultContactOffset);
+                    if (distance.isOverlapped &&
+                        LevelValidation.IsSignificantInitialPenetration(-penetrationDepth))
                     {
-                        errors.Add($"{colliders[first].name} severely penetrates {colliders[second].name}.");
+                        errors.Add(
+                            $"{colliders[first].name} overlaps {colliders[second].name} " +
+                            $"by {penetrationDepth:0.###} units.");
                     }
                 }
             }
 
             return errors;
+        }
+
+        private static void ValidateStructureDimensions(
+            GameObject prefab,
+            LevelPieceType pieceType,
+            ICollection<string> errors)
+        {
+            BoxCollider2D collider = prefab.GetComponent<BoxCollider2D>();
+            if (collider == null)
+            {
+                return;
+            }
+
+            Vector3 scale = prefab.transform.localScale;
+            Vector2 actualSize = Vector2.Scale(
+                collider.size,
+                new Vector2(Mathf.Abs(scale.x), Mathf.Abs(scale.y)));
+            Vector2 expectedSize = LevelValidation.GetPieceSize(pieceType);
+            if ((actualSize - expectedSize).sqrMagnitude > 0.000001f)
+            {
+                errors.Add(
+                    $"{pieceType} collider must be {expectedSize.x:0.###} x {expectedSize.y:0.###}; " +
+                    $"found {actualSize.x:0.###} x {actualSize.y:0.###}.");
+            }
+
+            if (collider.edgeRadius > 0.000001f)
+            {
+                errors.Add($"{pieceType} collider edge radius must be zero for modular face contact.");
+            }
         }
 
         private static void ValidateBreakable(

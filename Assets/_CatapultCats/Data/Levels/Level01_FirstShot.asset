@@ -10,30 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a3d1b80f4e924d07a9c8b1e2f3a4c503, type: 3}
-  m_Name: R3_Sandbox
+  m_Name: Level01_FirstShot
   m_EditorClassIdentifier: CatapultCats.Runtime::CatapultCats.Levels.LevelDefinition
-  levelId: R3_Sandbox
+  levelId: Level01_FirstShot
   catCount: 3
   slingshotPosition: {x: -6, y: -2.4}
   pieces:
-  - pieceType: 1
-    position: {x: 3.5, y: -4.625}
-    rotationDegrees: 0
-  - pieceType: 1
-    position: {x: 5.5, y: -4.625}
-    rotationDegrees: 0
-  - pieceType: 3
-    position: {x: 4.5, y: -4.625}
-    rotationDegrees: 0
   - pieceType: 0
-    position: {x: 4.5, y: -4.25}
+    position: {x: 6.25, y: -3}
     rotationDegrees: 0
-  - pieceType: 4
-    position: {x: 4.5, y: -3.75}
+  - pieceType: 1
+    position: {x: 5.25, y: -4}
+    rotationDegrees: 0
+  - pieceType: 1
+    position: {x: 7.25, y: -4}
     rotationDegrees: 0
   - pieceType: 6
-    position: {x: 2.75, y: -4.575}
-    rotationDegrees: 0
-  - pieceType: 6
-    position: {x: 6.25, y: -4.575}
+    position: {x: 6.25, y: -2.5}
     rotationDegrees: 0

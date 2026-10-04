@@ -111,6 +111,42 @@ namespace CatapultCats.Tests.EditMode
             AssertError("below ground", Validate());
         }
 
+        [Test]
+        public void ConstructionDimensionsAlignToModularGrid()
+        {
+            LevelPieceType[] structureTypes =
+            {
+                LevelPieceType.WoodBeam,
+                LevelPieceType.WoodBlock,
+                LevelPieceType.GlassBeam,
+                LevelPieceType.GlassBlock,
+                LevelPieceType.HeavyBlock,
+                LevelPieceType.Ramp
+            };
+
+            foreach (LevelPieceType pieceType in structureTypes)
+            {
+                Vector2 size = LevelValidation.GetPieceSize(pieceType);
+                Assert.That(
+                    size.x / LevelValidation.ConstructionGridUnit,
+                    Is.EqualTo(Mathf.Round(size.x / LevelValidation.ConstructionGridUnit)).Within(0.0001f),
+                    $"{pieceType} width is not grid-aligned.");
+                Assert.That(
+                    size.y / LevelValidation.ConstructionGridUnit,
+                    Is.EqualTo(Mathf.Round(size.y / LevelValidation.ConstructionGridUnit)).Within(0.0001f),
+                    $"{pieceType} height is not grid-aligned.");
+            }
+        }
+
+        [TestCase(-0.02f, false)]
+        [TestCase(-0.0205f, false)]
+        [TestCase(-0.04f, true)]
+        public void ContactEnvelopeIsRemovedBeforeTestingActualPenetration(float colliderDistance, bool expected)
+        {
+            float penetration = LevelValidation.CalculateGeometricPenetration(colliderDistance, 0.01f);
+            Assert.That(LevelValidation.IsSignificantInitialPenetration(-penetration), Is.EqualTo(expected));
+        }
+
         private void ConfigureValid(
             string levelId = "Simple",
             int catCount = 3,
@@ -125,7 +161,7 @@ namespace CatapultCats.Tests.EditMode
                 {
                     new LevelPiecePlacement(
                         LevelPieceType.Mouse,
-                        piecePosition ?? new Vector2(3f, -4.6f),
+                        piecePosition ?? new Vector2(3f, -4.575f),
                         0f)
                 });
         }
