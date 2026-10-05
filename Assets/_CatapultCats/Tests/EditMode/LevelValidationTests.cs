@@ -138,6 +138,20 @@ namespace CatapultCats.Tests.EditMode
             }
         }
 
+        [TestCase(LevelPieceType.WoodBeam, 1.5f, 0.25f)]
+        [TestCase(LevelPieceType.WoodBlock, 0.5f, 0.5f)]
+        [TestCase(LevelPieceType.GlassBeam, 1.5f, 0.25f)]
+        [TestCase(LevelPieceType.GlassBlock, 0.5f, 0.5f)]
+        [TestCase(LevelPieceType.HeavyBlock, 1f, 0.75f)]
+        [TestCase(LevelPieceType.Ramp, 1.5f, 0.25f)]
+        [TestCase(LevelPieceType.Mouse, 0.6f, 0.6f)]
+        public void AuthoringDimensionsMatchFixedStandard(LevelPieceType pieceType, float width, float height)
+        {
+            Vector2 size = LevelValidation.GetPieceSize(pieceType);
+            Assert.That(size.x, Is.EqualTo(width).Within(0.0001f));
+            Assert.That(size.y, Is.EqualTo(height).Within(0.0001f));
+        }
+
         [TestCase(-0.02f, false)]
         [TestCase(-0.0205f, false)]
         [TestCase(-0.04f, true)]

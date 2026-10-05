@@ -131,17 +131,20 @@ namespace CatapultCats.Editor
             GameObject root = CreateVisualBody(pieceType.ToString(), size, mass, sprite, color, material);
             Rigidbody2D body = root.GetComponent<Rigidbody2D>();
             BoxCollider2D collider = root.GetComponent<BoxCollider2D>();
-            SpriteRenderer visual = root.GetComponent<SpriteRenderer>();
+            SpriteRenderer visual = root.GetComponentInChildren<SpriteRenderer>(true);
             var debris = new Rigidbody2D[debrisCount];
             for (int index = 0; index < debrisCount; index++)
             {
                 var fragment = new GameObject($"Debris_{index + 1}");
                 fragment.transform.SetParent(root.transform, false);
                 fragment.transform.localPosition = new Vector3(
-                    (index - (debrisCount - 1) * 0.5f) / debrisCount,
+                    (index - (debrisCount - 1) * 0.5f) * size.x / debrisCount,
                     0f,
                     0f);
-                fragment.transform.localScale = new Vector3(0.8f / debrisCount, 0.35f, 1f);
+                fragment.transform.localScale = new Vector3(
+                    size.x * 0.8f / debrisCount,
+                    size.y * 0.35f,
+                    1f);
                 var fragmentVisual = fragment.AddComponent<SpriteRenderer>();
                 fragmentVisual.sprite = sprite;
                 fragmentVisual.color = color;
@@ -180,13 +183,11 @@ namespace CatapultCats.Editor
         private static GameObject CreateRampPrefab(Sprite sprite, PhysicsMaterial2D material)
         {
             var root = new GameObject("Ramp");
+            root.transform.localScale = Vector3.one;
             Vector2 size = LevelValidation.GetPieceSize(LevelPieceType.Ramp);
-            root.transform.localScale = new Vector3(size.x, size.y, 1f);
-            var visual = root.AddComponent<SpriteRenderer>();
-            visual.sprite = sprite;
-            visual.color = new Color32(91, 123, 82, 255);
-            visual.sortingOrder = 4;
+            CreateSizedVisual(root.transform, size, sprite, new Color32(91, 123, 82, 255), 4);
             var collider = root.AddComponent<BoxCollider2D>();
+            collider.size = size;
             collider.edgeRadius = 0f;
             collider.sharedMaterial = material;
             return SavePrefab(root, $"{StructurePrefabFolder}/Ramp.prefab");
@@ -195,13 +196,16 @@ namespace CatapultCats.Editor
         private static GameObject CreateMousePrefab(Sprite sprite)
         {
             var root = new GameObject("Mouse");
-            root.transform.localScale = Vector3.one * 0.6f;
-            var visual = root.AddComponent<SpriteRenderer>();
-            visual.sprite = sprite;
-            visual.color = new Color32(205, 207, 214, 255);
-            visual.sortingOrder = 6;
+            root.transform.localScale = Vector3.one;
+            Vector2 size = LevelValidation.GetPieceSize(LevelPieceType.Mouse);
+            SpriteRenderer visual = CreateSizedVisual(
+                root.transform,
+                size,
+                sprite,
+                new Color32(205, 207, 214, 255),
+                6);
             var collider = root.AddComponent<CircleCollider2D>();
-            collider.radius = 0.5f;
+            collider.radius = size.x * 0.5f;
             var body = root.AddComponent<Rigidbody2D>();
             body.mass = 0.55f;
             body.interpolation = RigidbodyInterpolation2D.Interpolate;
@@ -226,12 +230,10 @@ namespace CatapultCats.Editor
             PhysicsMaterial2D material)
         {
             var root = new GameObject(name);
-            root.transform.localScale = new Vector3(size.x, size.y, 1f);
-            var visual = root.AddComponent<SpriteRenderer>();
-            visual.sprite = sprite;
-            visual.color = color;
-            visual.sortingOrder = 4;
+            root.transform.localScale = Vector3.one;
+            CreateSizedVisual(root.transform, size, sprite, color, 4);
             var collider = root.AddComponent<BoxCollider2D>();
+            collider.size = size;
             collider.edgeRadius = 0f;
             collider.sharedMaterial = material;
             var body = root.AddComponent<Rigidbody2D>();
@@ -241,6 +243,23 @@ namespace CatapultCats.Editor
             body.interpolation = RigidbodyInterpolation2D.Interpolate;
             body.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
             return root;
+        }
+
+        private static SpriteRenderer CreateSizedVisual(
+            Transform parent,
+            Vector2 size,
+            Sprite sprite,
+            Color color,
+            int sortingOrder)
+        {
+            var visualObject = new GameObject("Visual");
+            visualObject.transform.SetParent(parent, false);
+            visualObject.transform.localScale = new Vector3(size.x, size.y, 1f);
+            var visual = visualObject.AddComponent<SpriteRenderer>();
+            visual.sprite = sprite;
+            visual.color = color;
+            visual.sortingOrder = sortingOrder;
+            return visual;
         }
 
         private static GameObject SavePrefab(GameObject temporaryRoot, string path)
@@ -286,8 +305,8 @@ namespace CatapultCats.Editor
                 LevelDefinition.DefaultSlingshotPosition,
                 new[]
                 {
-                    new LevelPiecePlacement(LevelPieceType.WoodBlock, new Vector2(3.5f, -4.625f), 0f),
-                    new LevelPiecePlacement(LevelPieceType.WoodBlock, new Vector2(5.5f, -4.625f), 0f),
+                    new LevelPiecePlacement(LevelPieceType.WoodBlock, new Vector2(3.875f, -4.625f), 0f),
+                    new LevelPiecePlacement(LevelPieceType.WoodBlock, new Vector2(5.125f, -4.625f), 0f),
                     new LevelPiecePlacement(LevelPieceType.GlassBlock, new Vector2(4.5f, -4.625f), 0f),
                     new LevelPiecePlacement(LevelPieceType.WoodBeam, new Vector2(4.5f, -4.25f), 0f),
                     new LevelPiecePlacement(LevelPieceType.HeavyBlock, new Vector2(4.5f, -3.75f), 0f),

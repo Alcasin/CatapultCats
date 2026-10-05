@@ -35,6 +35,11 @@ namespace CatapultCats.Editor
                     errors.Add($"{entry.PieceType} prefab contains forbidden 3D physics components.");
                 }
 
+                if (Vector3.Distance(prefab.transform.localScale, Vector3.one) > 0.000001f)
+                {
+                    errors.Add($"{entry.PieceType} prefab root scale must be (1,1,1).");
+                }
+
                 switch (entry.PieceType)
                 {
                     case LevelPieceType.WoodBeam:
@@ -63,6 +68,13 @@ namespace CatapultCats.Editor
                         if (mouse == null || Mathf.Abs(mouse.DefeatThreshold - 3f) > 0.001f || Mathf.Abs(mouse.CrushMassThreshold - 4f) > 0.001f)
                         {
                             errors.Add("Mouse prefab must preserve MouseTarget2D thresholds 3 and 4.");
+                        }
+
+                        CircleCollider2D mouseCollider = prefab.GetComponent<CircleCollider2D>();
+                        float expectedRadius = LevelValidation.GetPieceSize(LevelPieceType.Mouse).x * 0.5f;
+                        if (mouseCollider == null || Mathf.Abs(mouseCollider.radius - expectedRadius) > 0.001f)
+                        {
+                            errors.Add($"Mouse collider radius must be {expectedRadius:0.###}.");
                         }
 
                         break;
@@ -150,6 +162,12 @@ namespace CatapultCats.Editor
             if (collider.edgeRadius > 0.000001f)
             {
                 errors.Add($"{pieceType} collider edge radius must be zero for modular face contact.");
+            }
+
+
+            if (collider.offset.sqrMagnitude > 0.000001f)
+            {
+                errors.Add($"{pieceType} collider offset must be zero.");
             }
         }
 

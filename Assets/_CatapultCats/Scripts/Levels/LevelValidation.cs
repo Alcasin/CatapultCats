@@ -148,7 +148,7 @@ namespace CatapultCats.Levels
             switch (pieceType)
             {
                 case LevelPieceType.WoodBeam:
-                    return new Vector2(2f, 0.25f);
+                    return new Vector2(1.5f, 0.25f);
                 case LevelPieceType.WoodBlock:
                     return new Vector2(0.5f, 0.5f);
                 case LevelPieceType.GlassBeam:
@@ -158,7 +158,7 @@ namespace CatapultCats.Levels
                 case LevelPieceType.HeavyBlock:
                     return new Vector2(1f, 0.75f);
                 case LevelPieceType.Ramp:
-                    return new Vector2(2f, 0.25f);
+                    return new Vector2(1.5f, 0.25f);
                 case LevelPieceType.Mouse:
                     return new Vector2(0.6f, 0.6f);
                 default:

@@ -17,10 +17,10 @@ MonoBehaviour:
   slingshotPosition: {x: -6, y: -2.4}
   pieces:
   - pieceType: 1
-    position: {x: 3.5, y: -4.625}
+    position: {x: 3.875, y: -4.625}
     rotationDegrees: 0
   - pieceType: 1
-    position: {x: 5.5, y: -4.625}
+    position: {x: 5.125, y: -4.625}
     rotationDegrees: 0
   - pieceType: 3
     position: {x: 4.5, y: -4.625}

@@ -186,6 +186,11 @@ namespace CatapultCats.Editor
                 }
             }
 
+            if (GUILayout.Button("Reset Selected Scale"))
+            {
+                ResetSelectedScale();
+            }
+
             using (new EditorGUILayout.HorizontalScope())
             {
                 if (GUILayout.Button("Duplicate Selected"))
@@ -564,9 +569,11 @@ namespace CatapultCats.Editor
                     continue;
                 }
 
-                if (Vector3.Distance(instance.transform.localScale, source.transform.localScale) > 0.001f)
+                if (Vector3.Distance(instance.transform.localScale, Vector3.one) > 0.001f)
                 {
-                    errors.Add($"{instance.name} uses unsupported arbitrary scale. Restore its prefab scale.");
+                    errors.Add(
+                        $"{instance.name} must use its fixed prefab size. " +
+                        "Reset Transform Scale to (1,1,1).");
                     continue;
                 }
 
@@ -617,6 +624,20 @@ namespace CatapultCats.Editor
             }
 
             Selection.objects = Array.Empty<Object>();
+        }
+
+        private void ResetSelectedScale()
+        {
+            foreach (GameObject piece in GetSelectedPieces())
+            {
+                if (Vector3.Distance(piece.transform.localScale, Vector3.one) <= 0.000001f)
+                {
+                    continue;
+                }
+
+                Undo.RecordObject(piece.transform, "Reset Level Piece Scale");
+                piece.transform.localScale = Vector3.one;
+            }
         }
 
         private void RotateSelected(float degrees)
