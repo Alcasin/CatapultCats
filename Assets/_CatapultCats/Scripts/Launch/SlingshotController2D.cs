@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace CatapultCats.Launch
@@ -28,6 +30,7 @@ namespace CatapultCats.Launch
         private InputAction pointerPressAction;
         private Vector2 currentDragOffset;
         private LaunchState state;
+        private readonly List<RaycastResult> uiHits = new List<RaycastResult>();
 
         public LaunchState State => state;
         public Vector2 CurrentDragOffset => currentDragOffset;
@@ -107,7 +110,7 @@ namespace CatapultCats.Launch
 
             Vector2 pointerWorldPosition = ReadPointerWorldPosition();
 
-            if (state == LaunchState.Ready && pointerPressAction.WasPressedThisFrame())
+            if (state == LaunchState.Ready && pointerPressAction.WasPressedThisFrame() && !PointerIsOverUi())
             {
                 TryBeginDrag(pointerWorldPosition);
             }
@@ -122,6 +125,18 @@ namespace CatapultCats.Launch
             {
                 ReleaseOrCancel();
             }
+        }
+
+        private bool PointerIsOverUi()
+        {
+            if (EventSystem.current == null) return false;
+            var pointer = new PointerEventData(EventSystem.current)
+            {
+                position = pointerPositionAction.ReadValue<Vector2>()
+            };
+            uiHits.Clear();
+            EventSystem.current.RaycastAll(pointer, uiHits);
+            return uiHits.Count > 0;
         }
 
         private void CreateInputActionsIfNeeded()

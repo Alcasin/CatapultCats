@@ -2,7 +2,8 @@
   "name": "CatapultCats.Runtime",
   "rootNamespace": "CatapultCats",
   "references": [
-    "Unity.InputSystem"
+    "Unity.InputSystem",
+    "UnityEngine.UI"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

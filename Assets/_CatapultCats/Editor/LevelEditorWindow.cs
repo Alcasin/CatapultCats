@@ -515,11 +515,8 @@ namespace CatapultCats.Editor
                 return;
             }
 
-            var serialized = new SerializedObject(bootstrap);
-            serialized.FindProperty("defaultLevel").objectReferenceValue = level;
-            serialized.ApplyModifiedPropertiesWithoutUndo();
-            EditorSceneManager.MarkSceneDirty(gameplay);
-            EditorSceneManager.SaveScene(gameplay, GameplayScenePath);
+            // Bootstrap consumes this one-shot override; playtesting must not rewrite production Gameplay.
+            SessionState.SetString(LevelBootstrap.EditorPlaytestKey, AssetDatabase.GetAssetPath(level));
             EditorApplication.EnterPlaymode();
         }
 

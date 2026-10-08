@@ -83,11 +83,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.09411765, g: 0.72156864, b: 0.69411767, a: 1}
+  m_Sprite: {fileID: -5589940748211026861, guid: 37411f3a02928bd4499b34019de6c5f1, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -134,7 +134,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
@@ -249,11 +249,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.09411765, g: 0.72156864, b: 0.69411767, a: 1}
+  m_Sprite: {fileID: -5589940748211026861, guid: 37411f3a02928bd4499b34019de6c5f1, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -300,7 +300,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
@@ -415,11 +415,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.09411765, g: 0.72156864, b: 0.69411767, a: 1}
+  m_Sprite: {fileID: -5589940748211026861, guid: 37411f3a02928bd4499b34019de6c5f1, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -466,7 +466,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
@@ -579,8 +579,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.09411765, g: 0.72156864, b: 0.69411767, a: 1}
+  m_Sprite: {fileID: -5589940748211026861, guid: 37411f3a02928bd4499b34019de6c5f1, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -601,6 +601,7 @@ GameObject:
   - component: {fileID: 2034239996688562017}
   - component: {fileID: 3456724853125609327}
   - component: {fileID: 4052318690062498425}
+  - component: {fileID: 2594400166106202064}
   m_Layer: 0
   m_Name: GlassBlock
   m_TagString: Untagged
@@ -724,6 +725,20 @@ MonoBehaviour:
   - {fileID: 5204720822556762099}
   debrisVelocityScale: 0.22
   debrisLifetime: 3.5
+--- !u!114 &2594400166106202064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530780087954923277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b741ecef74de46c883f2b7156a827404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CatapultCats.Runtime::CatapultCats.Presentation.BreakBurst2D
+  spark: {fileID: 3278353205710792256, guid: 76621f395b71e654eb97fb9e323e6344, type: 2}
+  tint: {r: 0.80784315, g: 1, b: 0.9764706, a: 1}
 --- !u!1 &4630356467162837454
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,11 +822,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.09411765, g: 0.72156864, b: 0.69411767, a: 1}
+  m_Sprite: {fileID: -5589940748211026861, guid: 37411f3a02928bd4499b34019de6c5f1, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -858,7 +873,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}

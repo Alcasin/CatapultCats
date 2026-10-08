@@ -83,11 +83,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.6901961, g: 0.42352942, b: 0.21960784, a: 1}
+  m_Sprite: {fileID: 1628646613455987122, guid: d990e7eaba3ea8145b05f47e54515dd4, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -134,7 +134,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 5711511646555162947}
   - component: {fileID: 323555003586469508}
   - component: {fileID: 7739465852185108560}
+  - component: {fileID: 5681122726789178381}
   m_Layer: 0
   m_Name: WoodBlock
   m_TagString: Untagged
@@ -299,6 +300,20 @@ MonoBehaviour:
   - {fileID: 246263233691887663}
   debrisVelocityScale: 0.22
   debrisLifetime: 3.5
+--- !u!114 &5681122726789178381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 720414700850789698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b741ecef74de46c883f2b7156a827404, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: CatapultCats.Runtime::CatapultCats.Presentation.BreakBurst2D
+  spark: {fileID: 3278353205710792256, guid: 76621f395b71e654eb97fb9e323e6344, type: 2}
+  tint: {r: 0.9647059, g: 0.7764706, b: 0.46666667, a: 1}
 --- !u!1 &993723638719800792
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,11 +397,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.6901961, g: 0.42352942, b: 0.21960784, a: 1}
+  m_Sprite: {fileID: 1628646613455987122, guid: d990e7eaba3ea8145b05f47e54515dd4, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -433,7 +448,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
@@ -548,11 +563,11 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.6901961, g: 0.42352942, b: 0.21960784, a: 1}
+  m_Sprite: {fileID: 1628646613455987122, guid: d990e7eaba3ea8145b05f47e54515dd4, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -599,7 +614,7 @@ BoxCollider2D:
     oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
@@ -712,8 +727,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 1e144a481518e7348aec1b32d9cb9c6c, type: 3}
-  m_Color: {r: 0.6901961, g: 0.42352942, b: 0.21960784, a: 1}
+  m_Sprite: {fileID: 1628646613455987122, guid: d990e7eaba3ea8145b05f47e54515dd4, type: 2}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
