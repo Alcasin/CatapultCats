@@ -47,6 +47,7 @@ namespace CatapultCats.Launch
         public Collider2D ProjectileCollider => projectileCollider;
         public Camera InputCamera => inputCamera;
         public event Action<Vector2> Launched;
+        public event Action DragStarted;
 
         public void ResetForAiming()
         {
@@ -181,6 +182,7 @@ namespace CatapultCats.Launch
 
             state = LaunchState.Dragging;
             UpdateDrag(pointerWorldPosition);
+            DragStarted?.Invoke();
         }
 
         private void UpdateDrag(Vector2 pointerWorldPosition)

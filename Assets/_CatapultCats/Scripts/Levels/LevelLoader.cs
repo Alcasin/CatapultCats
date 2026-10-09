@@ -37,6 +37,7 @@ namespace CatapultCats.Levels
         public PieceCatalog Catalog => catalog;
         public Transform RuntimeRoot => runtimeRoot;
         public LevelDefinition CurrentLevel { get; private set; }
+        public event Action<LevelLoadResult> Loaded;
 
         public LevelLoadResult Load(LevelDefinition level)
         {
@@ -88,7 +89,9 @@ namespace CatapultCats.Levels
             resolver.ConfigureBodies(slingshot.ProjectileBody, bodiesWithProjectile);
             attemptController.ConfigureLevel(targets, level.CatCount);
             CurrentLevel = level;
-            return new LevelLoadResult(instances, targets, resolver.CriticalBodies);
+            var result = new LevelLoadResult(instances, targets, resolver.CriticalBodies);
+            Loaded?.Invoke(result);
+            return result;
         }
 
         private void ClearRuntimeRoot()
