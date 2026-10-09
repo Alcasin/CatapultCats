@@ -2,19 +2,29 @@
 
 A compact 2D slingshot puzzle game about launching cats, toppling structures and outsmarting mice. Built as a Unity game-development portfolio project, with an emphasis on readable physics gameplay, data-driven levels and practical editor tooling.
 
+![First Shot gameplay in CatapultCats](Docs/Media/01_FirstShot.png)
+
+**[Watch the gameplay video](Docs/Media/CatapultCats_Gameplay.mp4)** · [Windows demo](#windows-portfolio-demo)
+
 ## Gameplay
 
-- Drag a cat backward and release to launch; a short four-dot trajectory hints at the shot without revealing its destination.
-- Break wood and glass, move heavy blocks and use falling structures to defeat the mice.
+- Drag a cat backward and release to launch a Rigidbody2D-based projectile; a short four-dot trajectory hints at the shot without revealing its destination.
+- Physics-based destruction: break wood and glass, move heavy blocks and use falling structures to defeat the mice.
 - Complete five manually authored levels with limited cats, Retry, Next Level and a final Play Again flow.
 - Original procedurally generated 2D sprites, a backyard presentation, lightweight visual feedback and eight procedurally synthesized sound effects.
 - A custom Unity Level Editor for placement, selection, rotation, duplication, validation, saving/loading and playtesting fixed-size pieces.
 
 The campaign is **First Shot → Collapse → Glass House → Ricochet → Mouse Fortress**. Every level uses the same Gameplay scene and loads its layout from a `LevelDefinition` asset.
 
+## Screenshots
+
+| First Shot | Glass House | Mouse Fortress |
+| --- | --- | --- |
+| ![First Shot level](Docs/Media/01_FirstShot.png) | ![Glass House level](Docs/Media/02_GlassHouse.png) | ![Mouse Fortress level](Docs/Media/03_MouseFortress.png) |
+
 ## Technology and architecture
 
-Unity **6000.3.8f1**, 2D Built-In Render Pipeline, C#, Rigidbody2D/Collider2D, Input System **1.18.0**, Unity UI and Unity Test Framework/NUnit. No external service or sound-pack dependency is needed to play.
+**Unity 6 (6000.3.8f1)**, 2D Built-In Render Pipeline, **C#**, Rigidbody2D/Collider2D, Input System **1.18.0**, Unity UI and Unity Test Framework/NUnit. No external service or sound-pack dependency is needed to play.
 
 | Area | Responsibility |
 | --- | --- |
@@ -38,6 +48,12 @@ For authoring, open **CatapultCats > Level Editor**. Playtest Current Level deli
 
 ## Windows portfolio demo
 
+### Download
+
+**Release pending publication.** The Windows x64 demo has been manually tested, but its GitHub Release is not published yet. A download link will be added here when the release is available.
+
+### Build from source
+
 Outside Play Mode, choose **CatapultCats > Build Windows Portfolio Demo**. The command validates the saved Gameplay scene, campaign/catalog references and all eight audio clips, then builds a Windows x86-64 player at:
 
 ```text
@@ -48,13 +64,13 @@ The build uses Gameplay as its only scene and applies **1280×720 windowed** def
 
 Wait for the Console's `[CatapultCats R6] Build succeeded` message, then launch the executable and complete the final checks in [R6 release QA](Docs/R6_RELEASE_QA.md). Close the player with the window close button or Alt+F4. When sharing a demo, distribute the **entire Windows output folder**, not the executable alone: Unity's generated data and runtime files must stay beside it. `Builds/` is ignored by Git.
 
-No downloadable release or standalone QA result is claimed here. If a build fails, inspect the Console; an old executable left in the output directory is not proof that the new build succeeded.
+If a build fails, inspect the Console; an old executable left in the output directory is not proof that the new build succeeded.
 
 ## Testing and QA
 
 The existing EditMode suite covers launch math, shot counting, impact/crush rules, level validation, sequence ordering and project foundations. Run it in **Window > General > Test Runner > EditMode > Run All**. The legacy foundation resolution test checks the Editor's original 1920×1080 defaults; the release build's temporary 1280×720 settings do not change that contract.
 
-The accepted Editor gameplay has been manually checked, including the user-authored final Mouse Fortress layout. Physics stability, game feel, presentation and sound still need standalone verification: compilation and EditMode tests cannot establish those. [R6_RELEASE_QA.md](Docs/R6_RELEASE_QA.md) provides the final release checklist; earlier milestone QA notes remain in `Docs/`. No performance benchmarks or unrecorded test results are asserted.
+**All 59 EditMode tests passed.** The Windows x64 standalone demo has been manually tested, with all five levels and audio effects working, including the final user-authored Mouse Fortress layout. Automated tests complement rather than replace manual checks of physics, game feel, presentation and sound. [R6_RELEASE_QA.md](Docs/R6_RELEASE_QA.md) documents the release checklist; earlier milestone QA notes remain in `Docs/`.
 
 ## Project structure
 
@@ -69,9 +85,6 @@ Assets/_CatapultCats/
   Scripts/             Launch, core, physics, levels, presentation and audio
   Tests/EditMode/      Focused NUnit tests
 Docs/                  Project direction and manual QA checklists
+  Media/               Approved gameplay screenshots and video
 Tools/                 Reproducible standard-library audio synthesis script
 ```
-
-## Gameplay capture
-
-**Capture insertion location:** add an actual standalone gameplay screenshot and a short five-level gameplay video here after Windows QA. No screenshot, video, download URL or published release is included yet.
