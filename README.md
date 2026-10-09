@@ -4,7 +4,7 @@ A compact 2D slingshot puzzle game about launching cats, toppling structures and
 
 ![First Shot gameplay in CatapultCats](Docs/Media/01_FirstShot.png)
 
-**[Watch the gameplay video](Docs/Media/CatapultCats_Gameplay.mp4)** · [Windows demo](#windows-portfolio-demo)
+**[Download Windows Demo](https://github.com/Alcasin/CatapultCats/releases/tag/v1.0.0)** · **[Watch the gameplay video](Docs/Media/CatapultCats_Gameplay.mp4)**
 
 ## Gameplay
 
@@ -50,7 +50,11 @@ For authoring, open **CatapultCats > Level Editor**. Playtest Current Level deli
 
 ### Download
 
-**Release pending publication.** The Windows x64 demo has been manually tested, but its GitHub Release is not published yet. A download link will be added here when the release is available.
+The manually tested **v1.0.0 Windows x64 portfolio demo is now published**.
+
+1. Open the official **[Download Windows Demo — v1.0.0](https://github.com/Alcasin/CatapultCats/releases/tag/v1.0.0)** release page and download `CatapultCats-Windows-v1.0.0.zip`.
+2. Extract the ZIP to a folder, keeping all included files together.
+3. Launch `CatapultCats.exe`.
 
 ### Build from source
 
